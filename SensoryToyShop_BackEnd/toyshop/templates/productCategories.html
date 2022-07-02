@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block main %}
+<!-- Display product items from the specific product categories -->
+<section>
+  <!--Product Info Header-->
+  <div class="text-dark text-center p-5">
+    <div>
+      <p class="h3 text-dark mb-4">Select an item from below</p>
+    </div>
+  </div>
+
+  <!--Product Details Section-->
+
+  <div class="card-columns">
+    <!-- each Product is a bootstrap card -->
+    {% for product in products%}
+    <div class="card">
+      <img
+        class="card-img-top"
+        src="{{url_for('static', filename='img/'+product.image)}}"
+        alt="Card image"
+      />
+      <div class="card-body text-center">
+        <h4 class="card-title">{{product.name}}</h4>
+        <p class="card-text">{{product.description}}</p>
+      </div>
+      <div class="card-footer text-center">
+        <div class="container m-1">
+          <!-- "Add to Cart" button -->
+          <form action="{{ url_for('main.order') }}">
+            <!-- used a FORM to submit this button in a hidden field, to ensure the button is sending the data by POST -->
+            <input
+              type="hidden"
+              id="product_id"
+              name="product_id"
+              value="{{ product.id }}"
+            />
+            <input
+              class="btn-sm btn-primary"
+              type="submit"
+              value="Add to Cart"
+            />
+          </form>
+        </div>
+        <!-- "View Details" of product button  -->
+        <div class="container m-1">
+          <a
+            href="{{ url_for('main.productInfo', productid=product.id) }}"
+            class="btn btn-secondary btn-sm active"
+            role="button"
+            aria-pressed="true"
+            >View Details</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
