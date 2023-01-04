@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block main %}
+<!-- Display product info -->
+<section>
+  <!--Product Info Header-->
+  <div class="text-dark text-center p-5">
+    <div>
+      <p class="h3 text-dark mb-4">Product Details</p>
+    </div>
+  </div>
+  <div class="container">
+
+  <!--Product Info Section-->
+  <div class="container">
+    <div class="row">
+        <div class="col-6">
+          <img
+          class ="img-thumbnail"
+          src="{{url_for('static', filename='img/'+product.image)}}"
+          alt="Card image"
+          />
+        </div>
+        <div class="col-6">
+          <h4 class="card-title">{{product.name}}</h4>
+          <p class="card-text">{{productInfo.description}}</p>
+          
+          <div class="d-flex h-100">
+          <!--Back to Products button-->
+          <div class="align-self-start mr-auto">
+            <a
+            href="{{ url_for('main.index', _anchor='productCategories_anchor') }}"
+            class="btn btn-secondary p-2"
+            >Back To Products</a
+            >
+          </div>
+          <!--Add to Cart button-->
+            <div class="align-self-start mr-auto">
+              <form action="{{ url_for('main.order') }}">
+                <!-- used a FORM to submit this button in a hidden field, to ensure the button is sending the data by POST -->
+                  <input
+                  type="hidden"
+                  id="product_id"
+                  name="product_id"
+                  value="{{ product.id }}"
+                  />
+                  <input
+                  class="btn btn-primary p-2"
+                  type="submit"
+                  value="Add to Cart"
+                  />
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+

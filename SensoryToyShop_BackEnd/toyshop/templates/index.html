@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+<!--Start Head-->
+{% block head %}
+<!--Home: Welcome heading & Description: Sensory Toys-->
+<div
+  class="position-relative overflow-hidden p-1 p-md-1 m-md-1 text-center bg-light"
+>
+  <div class="col-md-5 p-md-2 mx-auto my-2">
+    <h1 class="display-4 font-weight-normal pb-2">Sensory Toys</h1>
+    <p class="lead font-weight-normal">
+      Quality products for those with unique sensory needs
+    </p>
+    <p>
+      Suitable for adults and children and especially those with ADHD, Autism
+      and Anxiety
+    </p>
+  </div>
+  <div class="product-device shadow-sm d-none d-md-block"></div>
+  <div
+    class="product-device product-device-2 shadow-sm d-none d-md-block"
+  ></div>
+</div>
+
+{% endblock %}
+
+<!--End Head-->
+
+<!--Start Main-->
+
+{% block main %}
+
+<!-- Display product categories to the user -->
+<section>
+  <div class="text-dark text-center">
+    <div>
+      <p class="h3 text-dark mb-4" id="productCategories_anchor">
+        Select a product category that best suit your needs!
+      </p>
+    </div>
+  </div>
+
+  <!--For Product Category in Product Categories, we reiterate card below-->
+
+  <div class="card-deck">
+    {% for productCategory in productCategories%}
+    <div class="card">
+      <img
+        class="card-img-top"
+        src="{{url_for('static', filename='img/'+productCategory.image)}}"
+        alt="Card image"
+      />
+      <div class="card-body text-center">
+        <h4 class="card-title">{{productCategory.name}}</h4>
+        <p class="card-text">{{productCategory.description}}</p>
+      </div>
+
+      <!--Card Footer - When click on "View Products" Button, display Products-->
+
+      <div class="card-footer text-center">
+        <a
+          href="{{ url_for('main.productCategory', productCategoryid=productCategory.id) }}"
+          class="btn btn-primary"
+          >View Products</a
+        >
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
+
+<!--End Main-->
